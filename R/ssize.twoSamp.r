@@ -1,5 +1,5 @@
 
-ssize.twoSamp<-function(delta,sigma,fdr=0.05,power=0.8,pi0=0.95,maxN=35,side="two-sided"){
+ssize.twoSamp<-function(delta,sigma,fdr=0.05,power=0.8,pi0=0.95,maxN=35,side="two-sided",cex.title=1.15,cex.legend=1){
 	ds<-delta/sigma
 	N<-maxN
 	a<-fdr
@@ -32,18 +32,22 @@ ssize.twoSamp<-function(delta,sigma,fdr=0.05,power=0.8,pi0=0.95,maxN=35,side="tw
 	crit<-NULL
 	ssize<-matrix(0,nrow=length(pi0),ncol=3)
 	colnames(ssize)<-c("pi0", "ssize","power")
+	up.start<-50
+
 	for(i in 1:length(pi0)){
 		p<-pi0[i]
+		up<-up.start
 		for(n in 2:N){
 			ni<-n
 			t<-ds/sqrt(2/ni)
-			up<-20
 			ci<-optimize(f=TSfun2,interval=c(0,up))$min
-			if(abs(ci-up)>=1){
+			up<-ci
+
+			if(abs(ci-up.start)>=1){
 				if(side=="two-sided"|side=="upper"){pwr.new<-1-pt(q=ci,df=2*ni-2,ncp=t)}
 				if(side=="lower"){pwr.new<-pt(q=-ci,df=2*ni-2,ncp=t)}
 			}
-			if(abs(ci-up)<1){pwr.new<-0; ci<-NA}
+			if(abs(ci-up.start)<1){pwr.new<-0; ci<-NA}
 
 			crit<-c(crit,ci)
 			pwr2<-c(pwr2,pwr.new)
@@ -76,12 +80,14 @@ ssize.twoSamp<-function(delta,sigma,fdr=0.05,power=0.8,pi0=0.95,maxN=35,side="tw
 	
 	abline(h=power,lty=2,lwd=2)
 	abline(v=0:N,h=0.1*(0:10),col="gray",lty=3)
-	title(xlab="Sample size (n)",ylab="Power",font.sub=4)
-	mtext(bquote(paste("Power vs. sample size with fdr=",.(fdr)," and ",
-		Delta/sigma==.(ds))),cex=1.15,padj=-0.5)
-	legend(x=4*N/5,y=length(pi0)/12,col=1:i,pch=c(16,16,16),
+	#title(xlab="Sample size (n)",ylab="Power",font.sub=4)
+	title(xlab="Sample size (n)",ylab="Power")
+
+	mtext(bquote(paste("Power vs. sample size with fdr=",.(round(fdr,4))," and ",
+		Delta/sigma==.(round(ds,4)))),cex=cex.title,padj=-0.5)
+	legend(x=N,y=0,xjust=1,yjust=0,col=1:i,pch=c(16,16,16),
 		lty=1:length(pi0),legend=as.character(pi0),bg="white",
-		title=expression(pi[0]))
+		title=expression(pi[0]),cex=cex.legend)
 
 	pwrMatrix<-round(pwrMatrix,7)
 	colnames(pwrMatrix)<-c("n",as.character(pi0))

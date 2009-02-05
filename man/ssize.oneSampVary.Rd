@@ -11,7 +11,7 @@
  power versus sample size is created.
 }
 \usage{
-ssize.oneSampVary(deltaMean, deltaSE, a, b, fdr = 0.05, power = 0.8, pi0 = 0.95, maxN = 35, side = "two-sided")
+ssize.oneSampVary(deltaMean, deltaSE, a, b, fdr = 0.05, power = 0.8, pi0 = 0.95, maxN = 35, side = "two-sided", cex.title=1.15, cex.legend=1)
 }
 \arguments{
   \item{deltaMean}{mean of normal distribution followed 
@@ -28,6 +28,8 @@ ssize.oneSampVary(deltaMean, deltaSE, a, b, fdr = 0.05, power = 0.8, pi0 = 0.95,
 		genes}
   \item{maxN}{the maximum sample size used for power calculations}
   \item{side}{options are "two-sided", "upper", or "lower"}
+  \item{cex.title}{controls size of chart titles}
+  \item{cex.legend}{controls size of chart legend}
 }
 \details{
 The effect sizes among genes are assumed to follow a Normal distribution

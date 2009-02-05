@@ -14,8 +14,8 @@
 \tabular{ll}{
 Package: \tab ssizefdr\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2008-09-17\cr
+Version: \tab 1.1\cr
+Date: \tab 2009-02-05\cr
 License: \tab GPL-3\cr
 }
  For all functions, the user inputs the desired power, the false
@@ -28,7 +28,7 @@ License: \tab GPL-3\cr
  expressions as well as the common standard deviation for all genes.
  This becomes the common effect size and common standard deviation for
  all genes when using the function \code{\link{ssize.oneSamp}}. For the
- function \code{\link{ssize.twoSampVary}} (\code{\link{ssize.twoSampVary}})
+ function \code{\link{ssize.twoSampVary}} (\code{\link{ssize.oneSampVary}})
  the differences in mean treatment expressions (effect sizes) are assumed
  to follow a normal distribution and the variances among genes are assumed
  to follow an inverse gamma distribution, so parameters for these
@@ -40,7 +40,7 @@ License: \tab GPL-3\cr
  parameters must be specified by the user.
  
 }
-\author{Megan Orr <meganorr@iastate.edu>, Peng Liu <pliu@iastate.edu.}
+\author{Megan Orr <meganorr@iastate.edu>, Peng Liu <pliu@iastate.edu>}
 \references{Liu, Peng and J. T. Gene Hwang. 2007. Quick calculation for
  sample size while controlling false discovery rate with application
  to microarray analysis. \emph{Bioinformatics} 23(6): 739-746.}

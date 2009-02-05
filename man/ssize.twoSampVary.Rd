@@ -12,7 +12,7 @@
  created.
 }
 \usage{
-ssize.twoSampVary(deltaMean, deltaSE, a, b, fdr = 0.05, power = 0.8, pi0 = 0.95, maxN = 35, side = "two-sided")
+ssize.twoSampVary(deltaMean, deltaSE, a, b, fdr = 0.05, power = 0.8, pi0 = 0.95, maxN = 35, side = "two-sided", cex.title=1.15, cex.legend=1)
 }
 \arguments{
   \item{deltaMean}{location (mean) parameter of normal distribution followed 
@@ -29,6 +29,8 @@ ssize.twoSampVary(deltaMean, deltaSE, a, b, fdr = 0.05, power = 0.8, pi0 = 0.95,
 		expressed genes}
   \item{maxN}{the maximum sample size used for power calculations}
   \item{side}{options are "two-sided", "upper", or "lower"}
+  \item{cex.title}{controls size of chart titles}
+  \item{cex.legend}{controls size of chart legend}
 }
 \details{
 Each \emph{delta.g} is assumed to follow a Normal distribution

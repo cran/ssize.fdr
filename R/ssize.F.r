@@ -1,5 +1,5 @@
 
-ssize.F<-function(X,beta,L=NULL,dn,sigma,fdr=0.05,power=0.8,pi0=0.95,maxN=20){
+ssize.F<-function(X,beta,L=NULL,dn,sigma,fdr=0.05,power=0.8,pi0=0.95,maxN=20,cex.title=1.15,cex.legend=1){
 	XTX<-t(X)%*%X
 	B<-beta
 	if (length(L)==0){L<-diag(length(B))}
@@ -18,18 +18,20 @@ ssize.F<-function(X,beta,L=NULL,dn,sigma,fdr=0.05,power=0.8,pi0=0.95,maxN=20){
 	pwr2<-NULL
 	ssize<-matrix(0,nrow=length(pi0),ncol=3)
 	colnames(ssize)<-c("pi0", "ssize","power")
+	up.start<-100 
 	for(i in 1:length(pi0)){
 		a<-fdr; p<-pi0[i]
 		pwr.new<-0
+            up<-up.start
 		for(n in 2:N){
-			E<-sig*t(L)%*%solve(t(X)%*%X)%*%L/n
+			E<-sig^2*t(L)%*%solve(t(X)%*%X)%*%L/n
 			l<-t(t(L)%*%B)%*%solve(E)%*%(t(L)%*%B)
 			df<-dn(n)
-			up<-100
 			ci<-optimize(Ffun,c(0,up))$min
-			if(pwr.new>.99999){pwr.new<-1}
-			if((abs(ci-up)>=1)){pwr.new<-1-pf(q=ci,df1=k,df2=df,ncp=l);crit.new<-ci}
-			if((abs(ci-up)<1)&(pwr.new!=1)){pwr.new<-0;crit.new<-NA}
+			up<-ci
+
+			if((abs(ci-up.start)>=1)){pwr.new<-1-pf(q=ci,df1=k,df2=df,ncp=l);crit.new<-ci}
+			if((abs(ci-up.start)<1)&(pwr.new!=1)){pwr.new<-0;crit.new<-NA}
 			crit<-c(crit,crit.new)	
 
 
@@ -63,15 +65,15 @@ ssize.F<-function(X,beta,L=NULL,dn,sigma,fdr=0.05,power=0.8,pi0=0.95,maxN=20){
 	
 	abline(h=power,lty=2,lwd=2)
 	abline(v=0:N,h=0.1*(0:10),col="gray",lty=3)
+     
 	maint<-paste("Power vs. sample size w/ specified design matrix,fdr=",
 			as.character(power)," and")
-	title(xlab="Sample size (n)",ylab="Power",font.sub=4,cex.main=1)
-	mtext(bquote("Power vs. sample size with specified design matrix,"),
-		cex=1.15,padj=-1.5)
-	mtext(bquote(paste("fdr=",.(fdr),", and ",sigma==.(sig))),cex=1.15)
+	title(xlab="Sample size (n)",ylab="Power") ##CHANGE
+	mtext(bquote("Power vs. sample size with specified design matrix,"),padj=-1.5,cex=cex.title)
+	mtext(bquote(paste("fdr=",.(round(fdr,4)),", and ",sigma==.(round(sig,4)))),cex=cex.title)
 
-	legend(x=4*N/5,y=length(pi0)/12,col=1:i,pch=c(16,16,16),lty=1:length(pi0),
-		legend=as.character(pi0),bg="white",title=expression(pi[0]))
+	legend(x=N,y=0,col=1:i,xjust=1,yjust=0,pch=c(16,16,16),lty=1:length(pi0),
+		legend=as.character(pi0),bg="white",title=expression(pi[0]),cex=cex.legend)
 
 	pwrMatrix<-round(pwrMatrix,7)
 	colnames(pwrMatrix)<-c("n",as.character(pi0))
@@ -86,3 +88,5 @@ ssize.F<-function(X,beta,L=NULL,dn,sigma,fdr=0.05,power=0.8,pi0=0.95,maxN=20){
 
 	return(ret)
 }
+
+

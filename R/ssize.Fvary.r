@@ -1,6 +1,6 @@
 
 
-ssize.Fvary<-function(X,beta,L=NULL,dn,a,b,fdr=0.05,power=0.8,pi0=0.95,maxN=20){
+ssize.Fvary<-function(X,beta,L=NULL,dn,a,b,fdr=0.05,power=0.8,pi0=0.95,maxN=20,cex.title=1.15,cex.legend=1){
 	XTX<-t(X)%*%X
 	B<-beta
 	if (length(L)==0){L<-diag(length(B))}
@@ -10,7 +10,7 @@ ssize.Fvary<-function(X,beta,L=NULL,dn,a,b,fdr=0.05,power=0.8,pi0=0.95,maxN=20){
 
 	getAvgFcdf_varySigma<-function(c){
 		intF<-function(rho){
-			ncF<-pf(q=c,df1=k,df2=df,ncp=rho*lambda)*(1/(gamma(a)*b^a)*rho^(a-1)*exp(-rho/b))
+			ncF<-pf(q=c,df1=k,df2=df,ncp=rho*lambda)*(1/(gamma(a)*(1/b)^a)*rho^(a-1)*exp(-rho*b))
 			return(ncF)
 		}
 		val.int<-integrate(f=intF,lower=0,upper=Inf,abs.tol=1e-10)$value
@@ -27,19 +27,20 @@ ssize.Fvary<-function(X,beta,L=NULL,dn,a,b,fdr=0.05,power=0.8,pi0=0.95,maxN=20){
 	crit<-NULL
 	pwr2<-NULL
 	ssize<-matrix(0,nrow=length(pi0),ncol=3)
-	colnames(ssize)<-c("pi0", "ssize","power")
+	colnames(ssize)<-c("pi0","ssize","power")
+	up.start<-100
 	for(i in 1:length(pi0)){
 		p<-pi0[i]; pwr.new<-0
+        	up<-up.start
 		for(n in 2:N){
 			E<-t(L)%*%solve(t(X)%*%X)%*%L/n
 			lambda<-t(t(L)%*%B)%*%solve(E)%*%(t(L)%*%B)
 			df<-dn(n)
-			up<-100
 			ci<-optimize(f=FVarfun,interval=c(0,up))$min
+			up<-ci    
 
-			if(pwr.new>.99999){pwr.new<-1}
-			if((abs(ci-up)>=1)){pwr.new<-1-getAvgFcdf_varySigma(ci);crit.new<-ci}
-			if((abs(ci-up)<1)&(pwr.new!=1)){pwr.new<-0;crit.new<-NA}
+			if((abs(ci-up.start)>=1)){pwr.new<-1-getAvgFcdf_varySigma(ci);crit.new<-ci}
+			if((abs(ci-up.start)<1)&(pwr.new!=1)){pwr.new<-0;crit.new<-NA}
 			crit<-c(crit,crit.new)	
 
 
@@ -73,11 +74,11 @@ ssize.Fvary<-function(X,beta,L=NULL,dn,a,b,fdr=0.05,power=0.8,pi0=0.95,maxN=20){
 	abline(v=0:N,h=0.1*(0:10),col="gray",lty=3)
 	title(xlab="Sample size (n)",	ylab="Power")
 	mtext(bquote("Average power vs. sample size with specified design matrix,"),
-		cex=1.15,padj=-2.35)
-	mtext(bquote(paste("fdr=",.(fdr),", and ",sigma[g]^2,"~IG(",.(a),",",.(b),")")),
-		cex=1.15,padj=-0.1)
-	legend(x=4*N/5,y=length(pi0)/12,col=1:i,pch=c(16,16,16),lty=1:length(pi0),
-		legend=as.character(pi0),bg="white",title=expression(pi[0]))
+		cex=cex.title,padj=-2.35)
+	mtext(bquote(paste("fdr=",.(round(fdr,4)),", and ",sigma[g]^2,"~IG(",.(round(a,4)),",",.(round(b,4)),")")),
+		cex=cex.title,padj=-0.1)
+	legend(x=N,y=0,xjust=1,yjust=0,col=1:i,pch=c(16,16,16),lty=1:length(pi0),
+		legend=as.character(pi0),bg="white",title=expression(pi[0]),cex=cex.legend)
 
 	pwrMatrix<-round(pwrMatrix,7)
 	colnames(pwrMatrix)<-c("n",as.character(pi0))

@@ -9,7 +9,7 @@
   standard deviation.  A graph of power versus sample size is created.
 }
 \usage{
-ssize.oneSamp(delta, sigma, fdr = 0.05, power = 0.8, pi0 = 0.95, maxN = 35, side = "two-sided")
+ssize.oneSamp(delta, sigma, fdr = 0.05, power = 0.8, pi0 = 0.95, maxN = 35, side = "two-sided", cex.title=1.15, cex.legend=1)
 }
 \arguments{
   \item{delta}{the common effect size for all genes}
@@ -20,6 +20,8 @@ ssize.oneSamp(delta, sigma, fdr = 0.05, power = 0.8, pi0 = 0.95, maxN = 35, side
 		expressed genes}
   \item{maxN}{the maximum sample size used for power calculations}
   \item{side}{options are "two-sided", "upper", or "lower"}
+  \item{cex.title}{controls size of chart titles}
+  \item{cex.legend}{controls size of chart legend}
 }
 \details{
 Effect sizes and standard deviations are assumed to be identical 

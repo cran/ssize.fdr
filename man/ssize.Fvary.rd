@@ -11,7 +11,7 @@
   power versus sample size is created.
 }
 \usage{
-ssize.Fvary(X, beta, L = NULL, dn, a, b, fdr = 0.05, power = 0.8, pi0 = 0.95, maxN = 20)
+ssize.Fvary(X, beta, L = NULL, dn, a, b, fdr = 0.05, power = 0.8, pi0 = 0.95, maxN = 20, cex.title=1.15, cex.legend=1)
 }
 \arguments{
   \item{X}{design matrix of experiment}
@@ -29,6 +29,8 @@ ssize.Fvary(X, beta, L = NULL, dn, a, b, fdr = 0.05, power = 0.8, pi0 = 0.95, ma
   \item{pi0}{a vector (or scalar) of proportions of non-differentially 
 	expressed genes}
   \item{maxN}{the maximum sample size used for power calculations}
+  \item{cex.title}{controls size of chart titles}
+  \item{cex.legend}{controls size of chart legend}
 }
 \details{
 The variances among genes are assumed to follow an Inverse Gamma
