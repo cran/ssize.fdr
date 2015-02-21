@@ -11,7 +11,8 @@
  power versus sample size is created.
 }
 \usage{
-ssize.oneSampVary(deltaMean, deltaSE, a, b, fdr = 0.05, power = 0.8, pi0 = 0.95, maxN = 35, side = "two-sided", cex.title=1.15, cex.legend=1)
+ssize.oneSampVary(deltaMean, deltaSE, a, b, fdr = 0.05, power = 0.8, pi0 = 0.95,
+                  maxN = 35, side = "two-sided", cex.title=1.15, cex.legend=1)
 }
 \arguments{
   \item{deltaMean}{mean of normal distribution followed 
@@ -51,7 +52,7 @@ are performed for each proportion.
 \references{Liu, Peng and J. T. Gene Hwang. 2007. Quick calculation for sample 
   size while controlling false discovery rate with application to microarray 
   analysis. \emph{Bioinformatics} 23(6): 739-746. }
-\author{Megan Orr \email{meganorr@iastate.edu}, Peng Liu \email{pliu@iastate.edu}}
+\author{Megan Orr \email{megan.orr@ndsu.edu}, Peng Liu \email{pliu@iastate.edu}}
 \note{
 Numerical integration used in calculations performed by the function 
 \code{\link{integrate}}, which uses adaptive quadrature of functions.
@@ -81,7 +82,8 @@ have no impact on the accuracy of the resulting calculations.
  p0<-c(0.90,0.95,0.995)	##proportions of non-differentially expressed genes
  N1<-35		##maximum sample size to be used in calculations
 
- osv<-ssize.oneSampVary(deltaMean=dm,deltaSE=ds,a=alph,b=beta,fdr=a2,power=pwr2,pi0=p0,maxN=N1,side="two-sided")
+ osv<-ssize.oneSampVary(deltaMean=dm,deltaSE=ds,a=alph,b=beta,fdr=a2,power=pwr2,pi0=p0,
+        maxN=N1,side="two-sided")
  osv$ssize	##first sample sizes to reach desired power
  osv$power	##calculated power for each sample size
  osv$crit.vals	##calculated critical value for each sample size

@@ -10,7 +10,8 @@
   versus sample size is created.
 }
 \usage{
-ssize.F(X, beta, L = NULL, dn, sigma, fdr = 0.05, power = 0.8, pi0 = 0.95, maxN = 20, cex.title=1.15, cex.legend=1)
+ssize.F(X, beta, L = NULL, dn, sigma, fdr = 0.05, power = 0.8, pi0 = 0.95, maxN = 20,
+        cex.title=1.15, cex.legend=1)
 }
 \arguments{
   \item{X}{design matrix of experiment}
@@ -47,7 +48,7 @@ are performed for each proportion.
 \references{ Liu, Peng and J. T. Gene Hwang. 2007. Quick calculation
   for sample size while controlling false discovery rate with
   application to microarray analysis. \emph{Bioinformatics} 23(6): 739-746. }
-\author{Megan Orr \email{meganorr@iastate.edu}, Peng Liu \email{pliu@iastate.edu}}
+\author{Megan Orr \email{megan.orr@ndsu.edu}, Peng Liu \email{pliu@iastate.edu}}
 \note{
 Powers calculated to be 0 may be negligibly conservative.
 
@@ -61,7 +62,8 @@ Critical values calculated as \sQuote{NA} are values >100.
  ##Sample size calculation for three-treatment loop design microarray experiment
  ##See Figure S2 of Liu & Hwang (2007)
  des<-matrix(c(1,-1,0,0,1,-1),ncol=2,byrow=FALSE)	##design matrix of loop design experiment
- b<-c(1,-0.5)			##difference between first two treatments is 1 and second and third treatments is -0.5
+ b<-c(1,-0.5)			##difference between first two treatments is 1 and second and 
+                ##third treatments is -0.5
  df<-function(n){3*n-2}		##degrees of freedom for this design is 3n-2
  s<-1				##standard deviation
  a<-0.05			##false discovery rate to be controlled
@@ -70,7 +72,8 @@ Critical values calculated as \sQuote{NA} are values >100.
  N1<-20				##maximum sample size for calculations
 
  ft<-ssize.F(X=des,beta=b,dn=df,sigma=s,fdr=a,power=pwr1,pi0=p0,maxN=N1)
- ft$ssize	##first sample sizes to reach desired power for each proportion of non-differentially expressed genes
+ ft$ssize	##first sample sizes to reach desired power for each proportion of 
+            ##non-differentially expressed genes
  ft$power	##power for each sample size
  ft$crit.vals	##critical value for each sample size
 

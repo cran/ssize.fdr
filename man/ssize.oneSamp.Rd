@@ -9,7 +9,8 @@
   standard deviation.  A graph of power versus sample size is created.
 }
 \usage{
-ssize.oneSamp(delta, sigma, fdr = 0.05, power = 0.8, pi0 = 0.95, maxN = 35, side = "two-sided", cex.title=1.15, cex.legend=1)
+ssize.oneSamp(delta, sigma, fdr = 0.05, power = 0.8, pi0 = 0.95, maxN = 35,
+              side = "two-sided", cex.title=1.15, cex.legend=1)
 }
 \arguments{
   \item{delta}{the common effect size for all genes}
@@ -41,7 +42,7 @@ are performed for each proportion.
 \references{ Liu, Peng and J. T. Gene Hwang. 2007. Quick calculation for
   sample size while controlling false discovery rate with application
   to microarray analysis. Bioinformatics 23(6): 739-746.}
-\author{Megan Orr \email{meganorr@iastate.edu}, Peng Liu \email{pliu@iastate.edu}}
+\author{Megan Orr \email{megan.orr@ndsu.edu}, Peng Liu \email{pliu@iastate.edu}}
 \note{
 Powers calculated to be 0 may be negligibly conservative.
 

@@ -11,7 +11,8 @@
   power versus sample size is created.
 }
 \usage{
-ssize.Fvary(X, beta, L = NULL, dn, a, b, fdr = 0.05, power = 0.8, pi0 = 0.95, maxN = 20, cex.title=1.15, cex.legend=1)
+ssize.Fvary(X, beta, L = NULL, dn, a, b, fdr = 0.05, power = 0.8, pi0 = 0.95, 
+            maxN = 20, cex.title=1.15, cex.legend=1)
 }
 \arguments{
   \item{X}{design matrix of experiment}
@@ -51,7 +52,7 @@ are performed for each proportion.
 \references{ Liu, Peng and J. T. Gene Hwang. 2007. Quick calculation for
   sample size while controlling false discovery rate with application 
   to microarray analysis. \emph{Bioinformatics} 23(6): 739-746. }
-\author{Megan Orr \email{meganorr@iastate.edu}, Peng Liu \email{pliu@iastate.edu}}
+\author{Megan Orr \email{megan.orr@ndsu.edu}, Peng Liu \email{pliu@iastate.edu}}
 \note{
 Numerical integration used in calculations performed by the function 
 \code{\link{integrate}}, which uses adaptive quadrature of functions.
@@ -68,7 +69,8 @@ Critical values calculated as \sQuote{NA} are values >100.
 \examples{
  ##Sample size calculation for three-treatment loop design microarray experiment
  des<-matrix(c(1,-1,0,0,1,-1),ncol=2,byrow=FALSE)	##design matrix of loop design experiment
- b<-c(1,-0.5)			##difference between first two treatments is 1 and second and third treatments is -0.5
+ b<-c(1,-0.5)			##difference between first two treatments is 1 and second and third 
+               ##treatments is -0.5
  df<-function(n){3*n-2}		##degrees of freedom for this design is 3n-2
  alph<-3;beta<-1	##variances among genes follow an Inverse Gamma(3,1)
  a1<-0.05	##fdr to be fixed
