@@ -1,24 +1,24 @@
 \name{ssize.twoSampVary}
 \alias{ssize.twoSampVary}
-\title{Sample Size Calculations for Two-Sample Microarray Experiments with 
+\title{Sample Size Calculations for Two-Sample Microarray Experiments with
 	Differing Mean Expressions and Standard Deviations Among Genes}
 \description{
- This function calculates appropriate sample sizes for two-sample microarray
+ Calculates appropriate sample sizes for two-sample microarray
  experiments in which the differences between mean treatment expression
  levels (\emph{delta.g} for gene \emph{g}) as well as standard deviations
- vary among genes. Sample sizes are determined based on a desired power, a 
+ vary among genes. Sample sizes are determined based on a desired power, a
  controlled false discovery rate, and user-specified proportions of
  non-differentially expressed genes. A graph of power versus sample size is
  created.
 }
 \usage{
 ssize.twoSampVary(deltaMean, deltaSE, a, b, fdr = 0.05, power = 0.8, pi0 = 0.95,
-                  maxN = 35, side = "two-sided", cex.title=1.15, cex.legend=1)
+maxN = 35, side = "two-sided", cex.title=1.15, cex.legend=1)
 }
 \arguments{
-  \item{deltaMean}{location (mean) parameter of normal distribution followed 
+  \item{deltaMean}{location (mean) parameter of normal distribution followed
 		by each \emph{delta.g}}
-  \item{deltaSE}{scale (standard deviation) parameter of normal distribution 
+  \item{deltaSE}{scale (standard deviation) parameter of normal distribution
 		followed by each \emph{delta.g}}
   \item{a}{shape parameter of inverse gamma distribution followed by variances
 		of genes}
@@ -36,26 +36,26 @@ ssize.twoSampVary(deltaMean, deltaSE, a, b, fdr = 0.05, power = 0.8, pi0 = 0.95,
 \details{
 Each \emph{delta.g} is assumed to follow a Normal distribution
 with mean specified by \code{deltaMean} and standard deviation specified
-by \code{deltaSE}. The variances among genes are assumed to follow an 
+by \code{deltaSE}. The variances among genes are assumed to follow an
 Inverse Gamma distribution with shape parameter \code{a} and scale
 parameter \code{b}.
 
 
-If a vector is input for \code{pi0}, sample size calculations 
-are performed for each proportion.  
+If a vector is input for \code{pi0}, sample size calculations
+are performed for each proportion.
 }
 \value{
-  \item{ssize}{sample sizes (for each treatment) at which desired power is 
+  \item{ssize}{sample sizes (for each treatment) at which desired power is
 	first reached}
   \item{power}{power calculations with corresponding sample sizes}
   \item{crit.vals}{critical value calculations with corresponding sample sizes}
 }
 \references{ Liu, Peng and J. T. Gene Hwang. 2007. Quick calculation for
-  sample size while controlling false discovery rate with application 
+  sample size while controlling false discovery rate with application
   to microarray analysis. \emph{Bioinformatics} 23(6): 739-746. }
 \author{Megan Orr \email{megan.orr@ndsu.edu}, Peng Liu \email{pliu@iastate.edu}}
-\note{ 
-Numerical integration used in calculations performed by the function 
+\note{
+Numerical integration used in calculations performed by the function
 \code{\link{integrate}}, which uses adaptive quadrature of functions.
 
 
@@ -72,8 +72,8 @@ are virtually zero, the function \code{\link{pt}} outputs a value <1e-8
 and outputs a warning of \dQuote{full precision not achieved}.  These values
 have no impact on the accuracy of the resulting calculations.
 }
-\seealso{\code{\link{ssize.twoSampVary}}, \code{\link{ssize.oneSamp}}, 
-	\code{\link{ssize.oneSampVary}}, \code{\link{ssize.F}}, 
+\seealso{\code{\link{ssize.twoSampVary}}, \code{\link{ssize.oneSamp}},
+	\code{\link{ssize.oneSampVary}}, \code{\link{ssize.F}},
 	\code{\link{ssize.Fvary}}}
 \examples{
  ##See Figure 3.(a) of Liu & Hwang (2007)
@@ -85,7 +85,7 @@ have no impact on the accuracy of the resulting calculations.
  N1<-35		##maximum sample size to be used in calculations
 
  tsv<-ssize.twoSampVary(deltaMean=dm,deltaSE=ds,a=alph,b=beta,fdr=a2,power=pwr2,pi0=p0,
-                        maxN=N1,side="two-sided")
+ maxN=N1,side="two-sided")
  tsv$ssize	##first sample size(s) to reach desired power
  tsv$power	##calculated power for each sample size
  tsv$crit.vals	##calculated critical value for each sample size

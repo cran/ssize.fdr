@@ -1,1 +1,4 @@
 exportPattern("^[[:alpha:]]+")
+
+importFrom("graphics", "abline", "legend", "lines", "mtext", "points", "title")
+importFrom("stats", "integrate", "optimize", "pf", "pt")
